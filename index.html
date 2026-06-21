@@ -43,22 +43,20 @@ border:1px solid #d4af37;
 <div id="lijst"></div>
 
 <script>
-
 function laadKlanten(data){
 
- let html = "";
+let html = "";
 
- data.forEach((naam,index)=>{
-   html += `<div class="klant">${index+1}. ${naam}</div>`;
- });
+data.forEach((naam,index)=>{
+html += `<div class="klant">${index+1}. ${naam}</div>`;
+});
 
- document.getElementById("lijst").innerHTML = html;
+document.getElementById("lijst").innerHTML = html;
 
 }
-
 </script>
 
-<script src="https://script.google.com/macros/s/AKfycbxSih7qwiCrbcvwe4PdqDXXgoY4N9TJ3MJM_CPmT9ayqkr3gdWq1YFDX5A7Nwb1wRUQ/exec?callback=laadKlanten"></script>
+<script src="https://script.google.com/macros/s/AKfycbxSIh7qwICrBcvVe4PdqDXxgoY4N9TjJMJM_CPmT9ayqkr3gdWqlYFDx5A7MWb1wRuQ/exec?callback=laadKlanten"></script>
 
 </body>
 </html>
