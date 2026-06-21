@@ -9,19 +9,13 @@
 body{
 background:#111;
 color:white;
-font-family:Arial,sans-serif;
+font-family:Arial;
 text-align:center;
-margin:0;
-padding:20px;
 }
 
 h1{
 color:#d4af37;
-margin-top:20px;
-}
-
-h2{
-color:white;
+margin-top:30px;
 }
 
 .klant{
@@ -46,26 +40,82 @@ border:1px solid #d4af37;
 <div id="lijst"></div>
 
 <script>
-
 function laadKlanten(data){
+let html = "";
 
-  let html = "";
-
-  if(data.length === 0){
-    html = '<div class="klant">Geen wachtenden</div>';
-  } else {
-    data.forEach((naam,index)=>{
-      html += `<div class="klant">${index+1}. ${naam}</div>`;
-    });
-  }
-
-  document.getElementById("lijst").innerHTML = html;
-
+if(data.length === 0){
+html = '<div class="klant">Geen wachtenden</div>';
+}else{
+data.forEach((naam,index)=>{
+html += `<div class="klant">${index+1}. ${naam}</div>`;
+});
 }
 
+document.getElementById("lijst").innerHTML = html;
+}
 </script>
 
-<script src="https://script.google.com/macros/s/AKfycbxSIh7qwICrBcvVe4PdqDXxgoY4N9TjJMJM_CPmT9ayqkr3gdWqlYFDx5A7MWb1wRuQ/exec?callback=laadKlanten"></script>
+<script src="<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Two Brothers Barbershop</title>
+
+<style>
+body{
+background:#111;
+color:white;
+font-family:Arial;
+text-align:center;
+}
+
+h1{
+color:#d4af37;
+margin-top:30px;
+}
+
+.klant{
+background:#222;
+width:80%;
+max-width:500px;
+margin:15px auto;
+padding:20px;
+border-radius:15px;
+font-size:25px;
+color:#d4af37;
+border:1px solid #d4af37;
+}
+</style>
+</head>
+
+<body>
+
+<h1>TWO BROTHERS BARBERSHOP</h1>
+<h2>⏳ Momenteel wachtend</h2>
+
+<div id="lijst"></div>
+
+<script>
+function laadKlanten(data){
+let html = "";
+
+if(data.length === 0){
+html = '<div class="klant">Geen wachtenden</div>';
+}else{
+data.forEach((naam,index)=>{
+html += `<div class="klant">${index+1}. ${naam}</div>`;
+});
+}
+
+document.getElementById("lijst").innerHTML = html;
+}
+</script>
+
+<script src="https://script.google.com/macros/s/AKfycbxSIh7qwICrBcvVe4PdqDXxgoY4N9TjJMJM_CPmT9ayqkr3gdWqlYFDx5A7MWb1wRuQ/exec"></script>
+
+</body>
+</html>"></script>
 
 </body>
 </html>
