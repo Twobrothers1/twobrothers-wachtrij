@@ -8,9 +8,9 @@
 <style>
 body{
 background:#111;
+color:white;
 font-family:Arial;
 text-align:center;
-color:white;
 }
 
 h1{
@@ -33,16 +33,30 @@ color:#d4af37;
 border:1px solid #d4af37;
 }
 </style>
-
 </head>
+
 <body>
 
 <h1>TWO BROTHERS BARBERSHOP</h1>
 <h2>⏳ Momenteel wachtend</h2>
 
-<div class="klant">1. Klant 1</div>
-<div class="klant">2. Klant 2</div>
-<div class="klant">3. Klant 3</div>
+<div id="lijst"></div>
+
+<script>
+fetch("https://script.google.com/macros/s/AKfycbwm368iXU1A423tPvAYxseN5Z8kawIWktoioVTPzqdaHMkwojo-3sSQ_Bf2oeaRWZus/exec")
+.then(response => response.json())
+.then(data => {
+
+let html = "";
+
+data.forEach((naam,index)=>{
+html += `<div class="klant">${index+1}. ${naam}</div>`;
+});
+
+document.getElementById("lijst").innerHTML = html;
+
+});
+</script>
 
 </body>
 </html>
