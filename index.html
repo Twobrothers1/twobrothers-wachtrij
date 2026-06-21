@@ -43,20 +43,22 @@ border:1px solid #d4af37;
 <div id="lijst"></div>
 
 <script>
-fetch("https://script.google.com/macros/s/AKfycbxSIh7qwICrBcvVe4PdqDXxgoY4N9TjJMJM_CPmT9ayqkr3gdWqlYFDx5A7MWb1wRuQ/exec")
-.then(response => response.json())
-.then(data => {
 
-let html = "";
+function laadKlanten(data){
 
-data.forEach((naam,index)=>{
-html += `<div class="klant">${index+1}. ${naam}</div>`;
-});
+ let html = "";
 
-document.getElementById("lijst").innerHTML = html;
+ data.forEach((naam,index)=>{
+   html += `<div class="klant">${index+1}. ${naam}</div>`;
+ });
 
-});
+ document.getElementById("lijst").innerHTML = html;
+
+}
+
 </script>
+
+<script src="https://script.google.com/macros/s/AKfycbxSIh7qwICrBcvVe4PdqDXxgoY4N9TjJMJM_CPmT9ayqkr3gdWqlYFDx5A7MWb1wRuQ/exec"></script>
 
 </body>
 </html>
