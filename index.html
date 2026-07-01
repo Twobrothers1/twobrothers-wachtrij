@@ -1,35 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="nl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Two Brothers Barbershop</title>
+
+<title>Two Brothers Barbershop - Wachtrij</title>
 
 <style>
+
 body{
-background:#111;
-color:white;
-font-family:Arial;
-text-align:center;
+    margin:0;
+    background:#111;
+    color:white;
+    font-family:Arial,Helvetica,sans-serif;
+    text-align:center;
 }
 
 h1{
-color:#d4af37;
-margin-top:30px;
+    margin-top:35px;
+    color:#d4af37;
+    font-size:34px;
+}
+
+h2{
+    color:white;
+    margin-bottom:35px;
 }
 
 .klant{
-background:#222;
-width:80%;
-max-width:500px;
-margin:15px auto;
-padding:20px;
-border-radius:15px;
-font-size:25px;
-color:#d4af37;
-border:1px solid #d4af37;
+    background:#222;
+    border:1px solid #d4af37;
+    border-radius:15px;
+    width:85%;
+    max-width:500px;
+    margin:15px auto;
+    padding:18px;
+    font-size:24px;
+    color:#d4af37;
 }
+
+.info{
+    color:#999;
+    margin-top:40px;
+    font-size:20px;
+}
+
 </style>
+
 </head>
 
 <body>
@@ -37,25 +54,46 @@ border:1px solid #d4af37;
 <h1>TWO BROTHERS BARBERSHOP</h1>
 <h2>⏳ Momenteel wachtend</h2>
 
-<div id="lijst"></div>
+<div id="lijst">
+<div class="info">Laden...</div>
+</div>
 
 <script>
+
 function laadKlanten(data){
-let html = "";
 
-if(data.length === 0){
-html = '<div class="klant">Geen wachtenden</div>';
-}else{
-data.forEach((naam,index)=>{
-html += `<div class="klant">${index+1}. ${naam}</div>`;
-});
+    let html="";
+
+    if(!Array.isArray(data)){
+        document.getElementById("lijst").innerHTML =
+        '<div class="klant">Kan wachtrij niet laden.</div>';
+        return;
+    }
+
+    if(data.length===0){
+
+        html='<div class="klant">Geen wachtenden</div>';
+
+    }else{
+
+        data.forEach(function(naam,index){
+
+            html += `
+            <div class="klant">
+                ${index+1}. ${naam}
+            </div>`;
+
+        });
+
+    }
+
+    document.getElementById("lijst").innerHTML=html;
+
 }
 
-document.getElementById("lijst").innerHTML = html;
-}
 </script>
 
-https://script.google.com/macros/s/AKfycbzWtQTXfK01x2hSa4Z4_GBNHA6pIqCbfpGolvXJ0ptnFk16zJGvfuaR2qLDWbu25yEE/exec
+<script src="https://script.google.com/macros/s/AKfycbzWtQTXfK01x2hSa4Z4_GBNHA6plqCbfpGolvXJ0ptnFk16zJGvfuaR2qLDWbu25yEE/exec?callback=laadKlanten"></script>
 
 </body>
 </html>
