@@ -3,15 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Two Brothers Barbershop - Wachtrij</title>
+<title>Two Brothers Barbershop</title>
 
 <style>
-
 body{
     margin:0;
     background:#111;
-    color:white;
+    color:#fff;
     font-family:Arial,Helvetica,sans-serif;
     text-align:center;
 }
@@ -19,12 +17,11 @@ body{
 h1{
     margin-top:35px;
     color:#d4af37;
-    font-size:34px;
 }
 
 h2{
     color:white;
-    margin-bottom:35px;
+    margin-bottom:30px;
 }
 
 .klant{
@@ -42,11 +39,8 @@ h2{
 .info{
     color:#999;
     margin-top:40px;
-    font-size:20px;
 }
-
 </style>
-
 </head>
 
 <body>
@@ -55,44 +49,53 @@ h2{
 <h2>⏳ Momenteel wachtend</h2>
 
 <div id="lijst">
-<div class="info">Laden...</div>
+    <div class="info">Laden...</div>
 </div>
 
 <script>
 
-function laadKlanten(data){
+const WEBAPP = "https://script.google.com/macros/s/AKfycbzWtQTXfK01x2hSa4Z4_GBNHA6pIqCbfpGolvXJ0ptnFk16zJGvfuaR2qLDWbu25yEE/exec";
 
-    let html="";
+async function laadKlanten(){
 
-    if(!Array.isArray(data)){
+    try{
+
+        const response = await fetch(WEBAPP);
+        const klanten = await response.json();
+
+        let html = "";
+
+        if(!Array.isArray(klanten) || klanten.length===0){
+
+            html='<div class="klant">Geen wachtenden</div>';
+
+        }else{
+
+            klanten.forEach((naam,index)=>{
+
+                html += `<div class="klant">${index+1}. ${naam}</div>`;
+
+            });
+
+        }
+
+        document.getElementById("lijst").innerHTML = html;
+
+    }catch(err){
+
         document.getElementById("lijst").innerHTML =
-        '<div class="klant">Kan wachtrij niet laden.</div>';
-        return;
-    }
+        '<div class="klant">Kan wachtrij niet laden</div>';
 
-    if(data.length===0){
-
-        html='<div class="klant">Geen wachtenden</div>';
-
-    }else{
-
-        data.forEach(function(naam,index){
-
-            html += `
-            <div class="klant">
-                ${index+1}. ${naam}
-            </div>`;
-
-        });
+        console.error(err);
 
     }
-
-    document.getElementById("lijst").innerHTML=html;
 
 }
 
+laadKlanten();
+setInterval(laadKlanten,10000);
+
 </script>
 
-<script src="https://script.google.com/macros/s/AKfycbzWtQTXfK01x2hSa4Z4_GBNHA6plqCbfpGolvXJ0ptnFk16zJGvfuaR2qLDWbu25yEE/exec
 </body>
 </html>
