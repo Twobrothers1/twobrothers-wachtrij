@@ -63,6 +63,8 @@ async function laadKlanten(){
         const response = await fetch(WEBAPP);
         const klanten = await response.json();
 
+console.log(klanten);
+alert(JSON.stringify(klanten));
         let html = "";
 
         if(!Array.isArray(klanten) || klanten.length===0){
