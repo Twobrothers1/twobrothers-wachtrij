@@ -71,11 +71,17 @@ async function laadKlanten(){
 
         }else{
 
-            klanten.forEach((naam,index)=>{
+            klanten.forEach((klant,index)=>{
 
-                html += `<div class="klant">${index+1}. ${naam}</div>`;
+    let tekst = `${index+1}. ${klant.naam}`;
 
-            });
+    if(klant.status === "Wordt geknipt"){
+        tekst += " ✂️ Wordt geknipt";
+    }
+
+    html += `<div class="klant">${tekst}</div>`;
+
+});
 
         }
 
