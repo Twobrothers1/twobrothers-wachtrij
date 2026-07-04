@@ -36,9 +36,16 @@ h2{
     color:#d4af37;
 }
 
+.wordtgeknipt{
+    color:#35d06e;
+    font-weight:bold;
+    font-size:20px;
+}
+
 .info{
     color:#999;
     margin-top:40px;
+}
 }
 </style>
 </head>
@@ -63,8 +70,7 @@ async function laadKlanten(){
         const response = await fetch(WEBAPP);
         const klanten = await response.json();
 
-console.log(klanten);
-alert(JSON.stringify(klanten));
+
         let html = "";
 
         if(!Array.isArray(klanten) || klanten.length===0){
@@ -75,10 +81,12 @@ alert(JSON.stringify(klanten));
 
             klanten.forEach((klant,index)=>{
 
+    if(klant.status === "Klaar") return;
+
     let tekst = `${index+1}. ${klant.naam}`;
 
     if(klant.status === "Wordt geknipt"){
-        tekst += " ✂️ Wordt geknipt";
+       tekst += " <span class='wordtgeknipt'>✂️ Wordt geknipt</span>";
     }
 
     html += `<div class="klant">${tekst}</div>`;
