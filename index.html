@@ -61,55 +61,113 @@ h2{
 
 <script>
 
-const WEBAPP = "https://script.google.com/macros/s/AKfycbxSIh7qwICrBcvVe4PdqDXxgoY4N9TjJMJM_CPmT9ayqkr3gdWqlYFDx5A7MWb1wRuQ/exec";
+const API_URL =
+"https://script.google.com/macros/s/AKfycbwUQI6FLd10U8oW8Jew-WkhWjkds5Rkl9CRMWnh6i8Ruj2dkgaC6WjSaq2XnRo0IdyQHQ/exec";
 
-async function laadKlanten(){
+document.getElementById("btn").onclick = aanmelden;
 
-    try{
+async function aanmelden(){
 
-        const response = await fetch(WEBAPP);
-        const klanten = await response.json();
+const btn=document.getElementById("btn");
+const melding=document.getElementById("melding");
 
+const naam=document.getElementById("naam").value.trim();
+const email=document.getElementById("email").value.trim();
 
-        let html = "";
+if(!naam || !email){
 
-        if(!Array.isArray(klanten) || klanten.length===0){
+melding.innerHTML="Vul alle velden in.";
 
-            html='<div class="klant">Geen wachtenden</div>';
-
-        }else{
-
-            klanten.forEach((klant,index)=>{
-
-    if(klant.status === "Klaar") return;
-
-    let tekst = `${index+1}. ${klant.naam}`;
-
-    if(klant.status === "Wordt geknipt"){
-       tekst += " <span class='wordtgeknipt'>✂️ Wordt geknipt</span>";
-    }
-
-    html += `<div class="klant">${tekst}</div>`;
-
-});
-
-        }
-
-        document.getElementById("lijst").innerHTML = html;
-
-    }catch(err){
-
-        document.getElementById("lijst").innerHTML =
-        '<div class="klant">Kan wachtrij niet laden</div>';
-
-        console.error(err);
-
-    }
+return;
 
 }
 
-laadKlanten();
-setInterval(laadKlanten,10000);
+btn.disabled=true;
+
+btn.innerHTML="Aanmelden...";
+
+melding.innerHTML="";
+
+const formData=new FormData();
+
+formData.append("naam",naam);
+formData.append("email",email);
+
+try{
+
+const response=await fetch(API_URL,{
+
+method:"POST",
+
+body:formData
+
+});
+
+const data=await response.json();
+
+if(data.success){
+
+melding.innerHTML=`
+<div style="color:#6CFF6C;font-size:22px;font-weight:bold;margin-bottom:15px;">
+✅ Je bent succesvol aangemeld!
+</div>
+
+<div style="font-size:18px;color:white;margin-bottom:20px;">
+Er staan momenteel
+<b style="color:#d4af37;">${data.wachtenden}</b>
+klanten voor je.
+</div>
+
+<div class="infoBox">
+
+<b>📧 Wacht op onze e-mail</b>
+
+<br><br>
+
+Zodra je de e-mail
+<b>'Bijna aan de beurt'</b>
+ontvangt,
+kom je direct naar de barbershop.
+
+<br><br>
+
+⚠️ <b>Belangrijk:</b><br>
+
+Kom je niet direct,
+dan is de kans groot
+dat je je beurt mist.
+
+</div>
+`;
+
+document.getElementById("naam").value="";
+document.getElementById("email").value="";
+
+}else{
+
+melding.innerHTML=`
+<div class="infoBox">
+<b>⚠️ ${data.message}</b>
+</div>
+`;
+
+}
+
+}catch(err){
+
+melding.innerHTML=`
+<div class="infoBox">
+<b>❌ Er is iets misgegaan.</b>
+</div>
+`;
+
+}
+
+btn.disabled=false;
+
+btn.innerHTML="Aanmelden";
+
+}
 
 </script>
 
