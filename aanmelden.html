@@ -5,23 +5,24 @@
 <button onclick="test()">Test POST</button>
 
 <script>
-function test() {
 
-fetch("https://script.google.com/macros/s/AKfycbwUQI6FLd10U8oW8Jew-WkhWjkds5Rkl9CRMWnh6i8Ruj2dkgaC6WjSaq2XnRo0IdyQHQ/exec",{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-naam:"Test",
-email:"test@test.nl"
-})
-})
-.then(r=>r.text())
-.then(console.log)
-.catch(console.error);
+function test(){
+
+  const data = new FormData();
+
+  data.append("naam","Test");
+  data.append("email","test@test.nl");
+
+  fetch("https://script.google.com/macros/s/AKfycbwUQI6FLd10U8oW8Jew-WkhWjkds5Rkl9CRMWnh6i8Ruj2dkgaC6WjSaq2XnRo0IdyQHQ/exec",{
+    method:"POST",
+    body:data
+  })
+  .then(r=>r.json())
+  .then(console.log)
+  .catch(console.error);
 
 }
+
 </script>
 
 </body>
