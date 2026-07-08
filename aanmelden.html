@@ -215,6 +215,74 @@ dat je je beurt mist.
 </div>
 
 </div>
+<script>
 
+const API_URL = "https://script.google.com/macros/s/AKfycbwUQI6FLd10U8oW8Jew-WkhWjkds5Rkl9CRMWnh6i8Ruj2dkgaC6WjSaq2XnRo0IdyQHQ/exec";
+
+document.getElementById("btn").addEventListener("click", aanmelden);
+
+async function aanmelden(){
+
+  const naam = document.getElementById("naam").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const melding = document.getElementById("melding");
+
+  if(!naam || !email){
+    melding.innerHTML = "Vul alle velden in.";
+    return;
+  }
+
+  melding.innerHTML = "Aanmelden...";
+
+  const data = new FormData();
+  data.append("naam", naam);
+  data.append("email", email);
+
+  try{
+
+    const response = await fetch(API_URL,{
+      method:"POST",
+      body:data
+    });
+
+    const resultaat = await response.json();
+
+    if(resultaat.success){
+
+      melding.innerHTML = `
+      <div style="color:#6CFF6C;font-size:22px;font-weight:bold;margin-bottom:15px;">
+      ✅ Je bent succesvol aangemeld!
+      </div>
+
+      <div style="font-size:18px;color:white;margin-bottom:20px;">
+      Er staan momenteel <b style="color:#d4af37;">${resultaat.wachtenden}</b> klanten voor je.
+      </div>
+      `;
+
+      document.getElementById("naam").value = "";
+      document.getElementById("email").value = "";
+
+    }else{
+
+      melding.innerHTML = `
+      <div class="infoBox">
+      ⚠️ ${resultaat.message}
+      </div>
+      `;
+    }
+
+  }catch(err){
+
+    console.error(err);
+
+    melding.innerHTML = `
+    <div class="infoBox">
+    ❌ Er is een fout opgetreden.
+    </div>
+    `;
+  }
+}
+
+</script>
 </body>
 </html>
