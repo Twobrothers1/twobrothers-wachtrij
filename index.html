@@ -67,7 +67,40 @@ const API_URL =
 document.getElementById("btn").onclick = aanmelden;
 
 async function aanmelden(){
+async function laadWachtrij() {
+  try {
+    const response = await fetch(API_URL);
+    const klanten = await response.json();
 
+    const lijst = document.getElementById("lijst");
+
+    if (klanten.length === 0) {
+      lijst.innerHTML = '<div class="info">Geen wachtenden.</div>';
+      return;
+    }
+
+    lijst.innerHTML = "";
+
+    klanten.forEach(k => {
+      lijst.innerHTML += `
+        <div class="klant">
+          <div>${k.naam}</div>
+          <div class="${k.status === 'Wordt geknipt' ? 'wordtgeknipt' : ''}">
+            ${k.status}
+          </div>
+        </div>
+      `;
+    });
+
+  } catch (err) {
+    document.getElementById("lijst").innerHTML =
+      '<div class="info">Fout bij laden.</div>';
+    console.error(err);
+  }
+}
+
+laadWachtrij();
+setInterval(laadWachtrij, 5000);
 const btn=document.getElementById("btn");
 const melding=document.getElementById("melding");
 
