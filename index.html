@@ -46,7 +46,6 @@ h2{
     color:#999;
     margin-top:40px;
 }
-}
 </style>
 </head>
 
@@ -60,13 +59,8 @@ h2{
 </div>
 
 <script>
+const API_URL = "https://script.google.com/macros/s/AKfycbxSIh7qwICrBcvVe4PdqDXxgoY4N9TjJMJM_CPmT9ayqkr3gdWqlYFDx5A7MWb1wRuQ/exec";
 
-const API_URL =
-"https://script.google.com/macros/s/AKfycbxSIh7qwICrBcvVe4PdqDXxgoY4N9TjJMJM_CPmT9ayqkr3gdWqlYFDx5A7MWb1wRuQ/exec";
-
-document.getElementById("btn").onclick = aanmelden;
-
-async function aanmelden(){
 async function laadWachtrij() {
   try {
     const response = await fetch(API_URL);
@@ -93,115 +87,14 @@ async function laadWachtrij() {
     });
 
   } catch (err) {
+    console.error(err);
     document.getElementById("lijst").innerHTML =
       '<div class="info">Fout bij laden.</div>';
-    console.error(err);
   }
 }
 
 laadWachtrij();
 setInterval(laadWachtrij, 5000);
-const btn=document.getElementById("btn");
-const melding=document.getElementById("melding");
-
-const naam=document.getElementById("naam").value.trim();
-const email=document.getElementById("email").value.trim();
-
-if(!naam || !email){
-
-melding.innerHTML="Vul alle velden in.";
-
-return;
-
-}
-
-btn.disabled=true;
-
-btn.innerHTML="Aanmelden...";
-
-melding.innerHTML="";
-
-const formData=new FormData();
-
-formData.append("naam",naam);
-formData.append("email",email);
-
-try{
-
-const response=await fetch(API_URL,{
-
-method:"POST",
-
-body:formData
-
-});
-
-const data=await response.json();
-
-if(data.success){
-
-melding.innerHTML=`
-<div style="color:#6CFF6C;font-size:22px;font-weight:bold;margin-bottom:15px;">
-✅ Je bent succesvol aangemeld!
-</div>
-
-<div style="font-size:18px;color:white;margin-bottom:20px;">
-Er staan momenteel
-<b style="color:#d4af37;">${data.wachtenden}</b>
-klanten voor je.
-</div>
-
-<div class="infoBox">
-
-<b>📧 Wacht op onze e-mail</b>
-
-<br><br>
-
-Zodra je de e-mail
-<b>'Bijna aan de beurt'</b>
-ontvangt,
-kom je direct naar de barbershop.
-
-<br><br>
-
-⚠️ <b>Belangrijk:</b><br>
-
-Kom je niet direct,
-dan is de kans groot
-dat je je beurt mist.
-
-</div>
-`;
-
-document.getElementById("naam").value="";
-document.getElementById("email").value="";
-
-}else{
-
-melding.innerHTML=`
-<div class="infoBox">
-<b>⚠️ ${data.message}</b>
-</div>
-`;
-
-}
-
-}catch(err){
-
-melding.innerHTML=`
-<div class="infoBox">
-<b>❌ Er is iets misgegaan.</b>
-</div>
-`;
-
-}
-
-btn.disabled=false;
-
-btn.innerHTML="Aanmelden";
-
-}
-
 </script>
 
 </body>
