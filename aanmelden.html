@@ -1,29 +1,220 @@
 <!DOCTYPE html>
-<html>
-<body>
+<html lang="nl">
+<head>
 
-<button onclick="test()">Test POST</button>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script>
+<title>Two Brothers Barbershop</title>
 
-function test(){
+<style>
 
-  const data = new FormData();
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
-  data.append("naam","Test");
-  data.append("email","test@test.nl");
+body{
 
-  fetch("https://script.google.com/macros/s/AKfycbwUQI6FLd10U8oW8Jew-WkhWjkds5Rkl9CRMWnh6i8Ruj2dkgaC6WjSaq2XnRo0IdyQHQ/exec",{
-    method:"POST",
-    body:data
-  })
-  .then(r=>r.json())
-  .then(console.log)
-  .catch(console.error);
+background:#111;
+font-family:Arial,Helvetica,sans-serif;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+min-height:100vh;
+
+padding:20px;
+
+color:white;
 
 }
 
-</script>
+.box{
+
+width:100%;
+max-width:430px;
+
+background:#1b1b1b;
+
+border:2px solid #d4af37;
+
+border-radius:16px;
+
+padding:30px;
+
+}
+
+#logo{
+
+display:block;
+
+width:280px;
+
+max-width:95%;
+
+margin:0 auto 25px;
+
+}
+
+h1{
+
+text-align:center;
+
+color:#d4af37;
+
+margin-bottom:25px;
+
+font-size:28px;
+
+}
+
+input{
+
+width:100%;
+
+padding:14px;
+
+margin-bottom:15px;
+
+border:none;
+
+border-radius:8px;
+
+font-size:16px;
+
+outline:none;
+
+}
+
+button{
+
+width:100%;
+
+padding:15px;
+
+background:#d4af37;
+
+border:none;
+
+border-radius:8px;
+
+font-size:18px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+button:hover{
+
+opacity:.9;
+
+}
+
+button:disabled{
+
+opacity:.6;
+
+cursor:not-allowed;
+
+}
+
+#melding{
+
+margin-top:20px;
+
+text-align:center;
+
+}
+
+.infoBox{
+
+margin-top:20px;
+
+background:#2a2415;
+
+border:1px solid #d4af37;
+
+border-radius:10px;
+
+padding:15px;
+
+line-height:1.6;
+
+font-size:15px;
+
+}
+
+.infoBox b{
+
+color:#d4af37;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<img
+id="logo"
+src="https://twobrothers1.github.io/twobrothers-wachtrij/twobrothers-logo.png"
+alt="Two Brothers">
+
+<h1>Meld je aan voor de wachtrij</h1>
+
+<input
+id="naam"
+placeholder="Naam">
+
+<input
+id="email"
+type="email"
+placeholder="E-mailadres">
+
+<button
+id="btn">
+
+Aanmelden
+
+</button>
+
+<div id="melding"></div>
+
+<div class="infoBox">
+
+<b>📧 Wacht op onze e-mail</b>
+
+<br><br>
+
+Zodra je de e-mail
+<b>'Bijna aan de beurt'</b>
+ontvangt,
+kom je direct naar de
+barbershop.
+
+<br><br>
+
+<b>⚠️ Belangrijk</b>
+
+<br>
+
+Kom je niet direct,
+dan is de kans groot
+dat je je beurt mist.
+
+</div>
+
+</div>
 
 </body>
 </html>
