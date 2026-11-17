@@ -172,14 +172,33 @@ alt="Two Brothers">
 
 <h1>Meld je aan voor de wachtrij</h1>
 
-<input
-id="naam"
-placeholder="Naam">
 
 <input
-id="email"
-type="email"
-placeholder="E-mailadres">
+  id="naam"
+  placeholder="Naam"
+  required>
+
+<input
+  id="email"
+  type="email"
+  placeholder="E-mailadres"
+  required>
+
+<input
+  id="telefoon"
+  type="tel"
+  placeholder="06-nummer"
+  required>
+
+<label style="display:flex;gap:10px;align-items:flex-start;margin-bottom:18px;font-size:13px;line-height:1.5;">
+  <input
+    id="whatsappToestemming"
+    type="checkbox"
+    style="width:20px;height:20px;margin:0;padding:0;flex-shrink:0;">
+  <span>
+    Ik geef Two Brothers Barbershop toestemming om mij via WhatsApp berichten te sturen over mijn wachtrijbeurt.
+  </span>
+</label>
 
 <button
 id="btn">
@@ -225,20 +244,24 @@ document.getElementById("btn").addEventListener("click", aanmelden);
 
 async function aanmelden(){
 
-  const naam = document.getElementById("naam").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const melding = document.getElementById("melding");
+ const naam = document.getElementById("naam").value.trim();
+const email = document.getElementById("email").value.trim();
+const telefoon = document.getElementById("telefoon").value.trim();
+const whatsappToestemming = document.getElementById("whatsappToestemming").checked;
+const melding = document.getElementById("melding");
 
-  if(!naam || !email){
-    melding.innerHTML = "Vul alle velden in.";
-    return;
-  }
+  if(!naam || !email || !telefoon || !whatsappToestemming){
+  melding.innerHTML = "Vul alle velden in en geef WhatsApp-toestemming.";
+  return;
+}
 
   melding.innerHTML = "Aanmelden...";
 
   const data = new FormData();
-  data.append("naam", naam);
-  data.append("email", email);
+data.append("naam", naam);
+data.append("email", email);
+data.append("telefoon", telefoon);
+data.append("whatsappToestemming", whatsappToestemming ? "ja" : "nee");
 
   try{
 
@@ -263,7 +286,8 @@ async function aanmelden(){
 
       document.getElementById("naam").value = "";
       document.getElementById("email").value = "";
-
+document.getElementById("telefoon").value = "";
+document.getElementById("whatsappToestemming").checked = false;
     }else{
 
       melding.innerHTML = `
