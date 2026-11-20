@@ -1,164 +1,154 @@
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Two Brothers Barbershop</title>
 
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body{
-
-background:#111;
-font-family:Arial,Helvetica,sans-serif;
-
-display:flex;
-justify-content:center;
-align-items:center;
-
-min-height:100vh;
-
-padding:20px;
-
-color:white;
-
+body {
+  background: #111;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  color: white;
 }
 
-.box{
-
-width:100%;
-max-width:430px;
-
-background:#1b1b1b;
-
-border:2px solid #d4af37;
-
-border-radius:16px;
-
-padding:30px;
-
+.box {
+  width: 100%;
+  max-width: 430px;
+  background: #1b1b1b;
+  border: 2px solid #d4af37;
+  border-radius: 16px;
+  padding: 30px;
 }
 
-#logo{
-
-display:block;
-
-width:420px;
-
-max-width:95%;
-
-margin:0 auto 25px;
-
+#logo {
+  display: block;
+  width: 420px;
+  max-width: 95%;
+  margin: 0 auto 25px;
 }
 
-h1{
-
-text-align:center;
-
-color:#d4af37;
-
-margin-bottom:25px;
-
-font-size:28px;
-
+h1 {
+  text-align: center;
+  color: #d4af37;
+  margin-bottom: 25px;
+  font-size: 28px;
 }
 
-input{
-
-width:100%;
-
-padding:14px;
-
-margin-bottom:15px;
-
-border:none;
-
-border-radius:8px;
-
-font-size:16px;
-
-outline:none;
-
+input:not([type="radio"]):not([type="checkbox"]) {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
 }
 
-button{
-
-width:100%;
-
-padding:15px;
-
-background:#d4af37;
-
-border:none;
-
-border-radius:8px;
-
-font-size:18px;
-
-font-weight:bold;
-
-cursor:pointer;
-
-transition:.25s;
-
+.keuzeTitel {
+  color: #d4af37;
+  font-weight: bold;
+  margin-bottom: 12px;
 }
 
-button:hover{
-
-opacity:.9;
-
+.keuzes {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
-button:disabled{
-
-opacity:.6;
-
-cursor:not-allowed;
-
+.keuze {
+  flex: 1;
+  padding: 14px 8px;
+  border: 1px solid #d4af37;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  background: #252525;
 }
 
-#melding{
-
-margin-top:20px;
-
-text-align:center;
-
+.keuze:has(input:checked) {
+  background: #443719;
+  border: 2px solid #d4af37;
 }
 
-.infoBox{
-
-margin-top:20px;
-
-background:#2a2415;
-
-border:1px solid #d4af37;
-
-border-radius:10px;
-
-padding:15px;
-
-line-height:1.6;
-
-font-size:15px;
-
+.keuze input {
+  margin-right: 5px;
+  accent-color: #d4af37;
 }
 
-.infoBox b{
-
-color:#d4af37;
-
+#whatsappToestemming {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+  font-size: 13px;
+  line-height: 1.5;
 }
 
+#whatsappToestemming input {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  accent-color: #d4af37;
+}
+
+button {
+  width: 100%;
+  padding: 15px;
+  background: #d4af37;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .25s;
+}
+
+button:hover {
+  opacity: .9;
+}
+
+button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+#melding {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.infoBox {
+  margin-top: 20px;
+  background: #2a2415;
+  border: 1px solid #d4af37;
+  border-radius: 10px;
+  padding: 15px;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+.infoBox b {
+  color: #d4af37;
+}
+
+.verborgen {
+  display: none;
+}
 </style>
-
 </head>
 
 <body>
@@ -166,145 +156,193 @@ color:#d4af37;
 <div class="box">
 
 <img
-id="logo"
-src="https://twobrothers1.github.io/twobrothers-wachtrij/twobrothers-logo.png"
-alt="Two Brothers">
+  id="logo"
+  src="https://twobrothers1.github.io/twobrothers-wachtrij/twobrothers-logo.png"
+  alt="Two Brothers">
 
 <h1>Meld je aan voor de wachtrij</h1>
 
-
 <input
   id="naam"
+  type="text"
   placeholder="Naam"
   required>
 
-<input
-  id="email"
-  type="email"
-  placeholder="E-mailadres"
-  required>
+<p class="keuzeTitel">Hoe wil je je melding ontvangen?</p>
 
-<input
-  id="telefoon"
-  type="tel"
-  placeholder="06-nummer"
-  required>
+<div class="keuzes">
+  <label class="keuze">
+    <input type="radio" name="contactMethode" value="whatsapp" checked>
+    WhatsApp
+  </label>
 
-<label style="display:flex;gap:10px;align-items:flex-start;margin-bottom:18px;font-size:13px;line-height:1.5;">
+  <label class="keuze">
+    <input type="radio" name="contactMethode" value="email">
+    E-mail
+  </label>
+</div>
+
+<div id="telefoonVeld">
   <input
-    id="whatsappToestemming"
-    type="checkbox"
-    style="width:20px;height:20px;margin:0;padding:0;flex-shrink:0;">
+    id="telefoon"
+    type="tel"
+    placeholder="06-nummer">
+</div>
+
+<div id="emailVeld" class="verborgen">
+  <input
+    id="email"
+    type="email"
+    placeholder="E-mailadres">
+</div>
+
+<label id="whatsappToestemming">
+  <input id="toestemming" type="checkbox">
   <span>
-    Ik geef Two Brothers Barbershop toestemming om mij via WhatsApp berichten te sturen over mijn wachtrijbeurt.
+    Ik geef Two Brothers Barbershop toestemming om mij via WhatsApp
+    berichten te sturen over mijn wachtrijbeurt.
   </span>
 </label>
 
-<button
-id="btn">
-
-Aanmelden
-
-</button>
+<button id="btn">Aanmelden</button>
 
 <div id="melding"></div>
 
 <div class="infoBox">
-<p style="margin-top:15px; color:#f0c040; font-size:14px; text-align:center; font-weight:bold;">
-  ⚠️ Vergeet niet je spam-/ongewenste e-mail te controleren.
-</p>
-<b>📧 Wacht op onze e-mail</b>
+  <p style="color:#f0c040;font-size:14px;text-align:center;font-weight:bold;">
+    ⚠️ Controleer ook je spam-/ongewenste e-mail als je e-mail kiest.
+  </p>
 
-<br><br>
+  <br>
 
-Zodra je de e-mail
-<b>'Bijna aan de beurt'</b>
-ontvangt,
-kom je direct naar de
-barbershop.
+  <b>💈 Bijna aan de beurt?</b>
 
-<br><br>
+  <br><br>
 
-<b>⚠️ Belangrijk</b>
+  Zodra je een melding ontvangt, kom je direct naar de barbershop.
 
-<br>
+  <br><br>
 
-Kom je niet direct,
-dan is de kans groot
-dat je je beurt mist.
+  <b>⚠️ Belangrijk</b>
 
+  <br>
+
+  Kom je niet direct, dan is de kans groot dat je je beurt mist.
 </div>
 
 </div>
+
 <script>
 
 const API_URL = "https://script.google.com/macros/s/AKfycbzshKHr-spPjvLcZwB372Zjn2jRCTsCKEiUfMti9C6E0qu8A2UnkkqDlydKhIbaCxBvGw/exec";
+
+const telefoonVeld = document.getElementById("telefoonVeld");
+const emailVeld = document.getElementById("emailVeld");
+const toestemmingVeld = document.getElementById("whatsappToestemming");
+
+document.querySelectorAll('input[name="contactMethode"]').forEach(radio => {
+  radio.addEventListener("change", veranderMethode);
+});
+
 document.getElementById("btn").addEventListener("click", aanmelden);
 
-async function aanmelden(){
+function veranderMethode() {
+  const methode = document.querySelector('input[name="contactMethode"]:checked').value;
 
- const naam = document.getElementById("naam").value.trim();
-const email = document.getElementById("email").value.trim();
-const telefoon = document.getElementById("telefoon").value.trim();
-const whatsappToestemming = document.getElementById("whatsappToestemming").checked;
-const melding = document.getElementById("melding");
-
-  if(!naam || !email || !telefoon || !whatsappToestemming){
-  melding.innerHTML = "Vul alle velden in en geef WhatsApp-toestemming.";
-  return;
+  telefoonVeld.classList.toggle("verborgen", methode !== "whatsapp");
+  emailVeld.classList.toggle("verborgen", methode !== "email");
+  toestemmingVeld.classList.toggle("verborgen", methode !== "whatsapp");
 }
 
+async function aanmelden() {
+
+  const naam = document.getElementById("naam").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const telefoon = document.getElementById("telefoon").value.trim();
+  const toestemming = document.getElementById("toestemming").checked;
+  const methode = document.querySelector('input[name="contactMethode"]:checked').value;
+  const melding = document.getElementById("melding");
+  const btn = document.getElementById("btn");
+
+  if (!naam) {
+    melding.innerHTML = "Vul je naam in.";
+    return;
+  }
+
+  if (methode === "whatsapp" && !telefoon) {
+    melding.innerHTML = "Vul je mobiele telefoonnummer in.";
+    return;
+  }
+
+  if (methode === "whatsapp" && !toestemming) {
+    melding.innerHTML = "Geef toestemming om WhatsApp-berichten te ontvangen.";
+    return;
+  }
+
+  if (methode === "email" && !email) {
+    melding.innerHTML = "Vul je e-mailadres in.";
+    return;
+  }
+
   melding.innerHTML = "Aanmelden...";
+  btn.disabled = true;
 
   const data = new FormData();
-data.append("naam", naam);
-data.append("email", email);
-data.append("telefoon", telefoon);
-data.append("whatsappToestemming", whatsappToestemming ? "ja" : "nee");
+  data.append("naam", naam);
+  data.append("email", methode === "email" ? email : "");
+  data.append("telefoon", methode === "whatsapp" ? telefoon : "");
+  data.append("whatsappToestemming", methode === "whatsapp" ? "ja" : "nee");
+  data.append("contactMethode", methode);
 
-  try{
+  try {
 
-    const response = await fetch(API_URL,{
-      method:"POST",
-      body:data
+    const response = await fetch(API_URL, {
+      method: "POST",
+      body: data
     });
 
     const resultaat = await response.json();
 
-    if(resultaat.success){
+    if (resultaat.success) {
 
       melding.innerHTML = `
-      <div style="color:#6CFF6C;font-size:22px;font-weight:bold;margin-bottom:15px;">
-      ✅ Je bent succesvol aangemeld!
-      </div>
+        <div style="color:#6CFF6C;font-size:22px;font-weight:bold;margin-bottom:15px;">
+          ✅ Je bent succesvol aangemeld!
+        </div>
 
-      <div style="font-size:18px;color:white;margin-bottom:20px;">
-      Er staan momenteel <b style="color:#d4af37;">${resultaat.wachtenden}</b> klanten voor je.
-      </div>
+        <div style="font-size:18px;color:white;margin-bottom:20px;">
+          Er staan momenteel
+          <b style="color:#d4af37;">${resultaat.wachtenden}</b>
+          klanten voor je.
+        </div>
       `;
 
       document.getElementById("naam").value = "";
       document.getElementById("email").value = "";
-document.getElementById("telefoon").value = "";
-document.getElementById("whatsappToestemming").checked = false;
-    }else{
+      document.getElementById("telefoon").value = "";
+      document.getElementById("toestemming").checked = false;
+
+    } else {
 
       melding.innerHTML = `
-      <div class="infoBox">
-      ⚠️ ${resultaat.message}
-      </div>
+        <div class="infoBox">
+          ⚠️ ${resultaat.message}
+        </div>
       `;
     }
 
-  }catch(err){
+  } catch (err) {
 
     console.error(err);
 
     melding.innerHTML = `
-    <div class="infoBox">
-    ❌ Er is een fout opgetreden.
-    </div>
+      <div class="infoBox">
+        ❌ Er is een fout opgetreden.
+      </div>
     `;
+
+  } finally {
+    btn.disabled = false;
   }
 }
 
